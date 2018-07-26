@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-
+    return view('books');
 });
 
 Route::post('/books', function () {
