@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Book;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+
 
 class BooksController extends Controller
 {
@@ -34,7 +37,22 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'item_name' => 'required|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/')->withInput()->withErrors($validator);
+        }
+
+        $books = new Book();
+        $books->item_name = $request->item_name;
+        $books->item_number = '1';
+        $books->item_amount = '1000';
+        $books->published = '2017-03-07 00:00:00';
+        $books->save();
+
+        return redirect('/');
     }
 
     /**
