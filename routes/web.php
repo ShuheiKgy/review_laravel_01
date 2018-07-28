@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('books');
-});
+Route::get('/', 'BooksController@index');
 
 Route::post('/books', function () {
 
