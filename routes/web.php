@@ -15,6 +15,4 @@ Route::get('/', 'BooksController@index');
 
 Route::post('/books', 'BooksController@store');
 
-Route::delete('/book/{book}', function () {
-
-});
+Route::delete('/book/{book}', 'BooksController@destroy');

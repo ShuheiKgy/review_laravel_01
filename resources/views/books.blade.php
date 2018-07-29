@@ -43,7 +43,14 @@
                                         <div>{{ $book->item_name }}</div>
                                     </td>
                                     <td>
+                                        <form action="{{ url('book/'.$book->id) }}" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
 
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="glyphicon glyphicon-trash"></i> 削除
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
