@@ -40,6 +40,9 @@ class BooksController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'item_name' => 'required|max:255',
+            'item_number' => 'required|min:1|max:3',
+            'item_amount' => 'required|min:1|max:6',
+            'published' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -48,9 +51,9 @@ class BooksController extends Controller
 
         $books = new Book();
         $books->item_name = $request->item_name;
-        $books->item_number = '1';
-        $books->item_amount = '1000';
-        $books->published = '2017-03-07 00:00:00';
+        $books->item_number = $request->item_number;
+        $books->item_amount = $request->item_amount;
+        $books->published = $request->published;
         $books->save();
 
         return redirect('/');
