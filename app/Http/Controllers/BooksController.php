@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Book;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::orderBy('created_at', 'asc')->paginate(5);
+        $books = Book::where('user_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(5);
         return view('books', ['books' => $books]);
     }
 
@@ -55,6 +56,7 @@ class BooksController extends Controller
         }
 
         $books = new Book();
+        $books->user_id = Auth::user()->id;
         $books->item_name = $request->item_name;
         $books->item_number = $request->item_number;
         $books->item_amount = $request->item_amount;
@@ -83,7 +85,7 @@ class BooksController extends Controller
      */
     public function edit($id)
     {
-        $book = Book::find($id);
+        $book = Book::where('user_id', Auth::user()->id)->find($id);
         return view('bookedit', ['book' => $book]);
     }
 
@@ -108,7 +110,7 @@ class BooksController extends Controller
             return redirect('/')->withInput()->withErrors($validator);
         }
 
-        $book = Book::find($request->id);
+        $book = Book::where('user_id', Auth::user()->id)->find($request->id);
         $book->item_name = $request->item_name;
         $book->item_number = $request->item_number;
         $book->item_amount = $request->item_amount;
