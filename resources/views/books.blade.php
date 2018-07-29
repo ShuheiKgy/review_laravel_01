@@ -9,10 +9,21 @@
             {{ csrf_field() }}
 
             <div class="form-group">
-                <label for="book" class="col-sm-3 control-label">Book</label>
-
                 <div class="col-sm-6">
+                    <label for="book" class="col-sm-3 control-label">Book</label>
                     <input type="text" name="item_name" id="book-name" class="form-control">
+                </div>
+                <div class="col-sm-6">
+                    <label for="amount" class="col-sm-3 control-label">金額</label>
+                    <input type="text" name="item_amount" id="book-amount" class="form-control">
+                </div>
+                <div class="col-sm-6">
+                    <label for="number" class="col-sm-3 control-label">数</label>
+                    <input type="text" name="item_number" id="book-number" class="form-control">
+                </div>
+                <div class="col-sm-6">
+                    <label for="published" class="col-sm-3 control-label">公開日</label>
+                    <input type="date" name="published" id="book-published" class="form-control">
                 </div>
             </div>
             <div class="form-group">
@@ -41,6 +52,14 @@
                                 <tr>
                                     <td class="table-text">
                                         <div>{{ $book->item_name }}</div>
+                                    </td>
+                                    <td>
+                                        <form action="{{ url('book/edit/'.$book->id) }}" method="post">
+                                            {{ csrf_field() }}
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="glyphicon glyphicon-pencil"></i> 更新
+                                            </button>
+                                        </form>
                                     </td>
                                     <td>
                                         <form action="{{ url('book/'.$book->id) }}" method="post">
