@@ -89,9 +89,28 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'item_name' => 'required|min:3|max:255',
+            'item_number' => 'required|min:1|max:3',
+            'item_amount' => 'required|min:1|max:6',
+            'published' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/')->withInput()->withErrors($validator);
+        }
+
+        $book = Book::find($request->id);
+        $book->item_name = $request->item_name;
+        $book->item_number = $request->item_number;
+        $book->item_amount = $request->item_amount;
+        $book->published = $request->published;
+        $book->save();
+
+        return redirect('/');
     }
 
     /**

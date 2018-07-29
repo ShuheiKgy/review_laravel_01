@@ -6,6 +6,8 @@
         <div class="col-md-12">
             @include('common.errors')
             <form action="{{ url('book/update') }}" method="post">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
                 <div class="form-group">
                     <label for="item_name">Title</label>
                     <input type="text" id="item_name" name="item_name" class="form-control" value="{{ $book->item_name }}">
