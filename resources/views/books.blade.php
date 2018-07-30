@@ -5,7 +5,7 @@
     <div class="panel-body">
         @include('common.errors')
 
-        <form action="{{ url('books') }}" method="post" class="form-horizontal">
+        <form enctype="multipart/form-data" action="{{ url('books') }}" method="post" class="form-horizontal">
             {{ csrf_field() }}
 
             <div class="form-group">
@@ -24,6 +24,10 @@
                 <div class="col-sm-6">
                     <label for="published" class="col-sm-3 control-label">公開日</label>
                     <input type="date" name="published" id="book-published" class="form-control">
+                </div>
+                <div class="col-sm-6">
+                    <label>画像</label>
+                    <input type="file" name="item_img">
                 </div>
             </div>
             <div class="form-group">
@@ -52,6 +56,7 @@
                                 <tr>
                                     <td class="table-text">
                                         <div>{{ $book->item_name }}</div>
+                                        <div><img src="upload/{{ $book->item_img }}" width="100"></div>
                                     </td>
                                     <td>
                                         <form action="{{ url('book/edit/'.$book->id) }}" method="post">
